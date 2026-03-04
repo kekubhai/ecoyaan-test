@@ -1,13 +1,24 @@
 // This is a SERVER COMPONENT — data fetching happens on the server
+import { headers } from "next/headers";
 import CartClient from "./CartClient";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 async function getCartData() {
-  // In prod: fetch from real API. Here: direct import for SSR demo
-  const res = await fetch("http://localhost:3000/api/cart", { cache: "no-store" });
+  const h = await headers();
+  const host = h.get("host");
+  if (!host) throw new Error("Missing Host header");
+
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  const baseUrl = `${proto}://${host}`;
+
+  const res = await fetch(`${baseUrl}/api/cart`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch cart: ${res.status}`);
   return res.json();
 }
 
 export default async function CartPage() {
-  const data = await getCartData(); // ← This is the SSR part
+  const data = await getCartData(); // SSR
   return <CartClient initialData={data} />;
 }

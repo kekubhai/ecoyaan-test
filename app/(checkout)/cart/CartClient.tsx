@@ -6,20 +6,9 @@ import { useCheckout } from "@/context/CheckoutContext";
 import CartItem from "@/components/CartItem";
 import OrderSummary from "@/components/OrderSummary";
 import StepIndicator from "@/components/StepIndicator";
+import type { CartApiResponse } from "@/types";
 
-type CartData = {
-  cartItems: {
-    product_id: number;
-    product_name: string;
-    product_price: number;
-    quantity: number;
-    image: string;
-  }[];
-  shipping_fee: number;
-  discount_applied: number;
-};
-
-export default function CartClient({ initialData }: { initialData: CartData }) {
+export default function CartClient({ initialData }: { initialData: CartApiResponse }) {
   const { setCartItems, setShippingFee, cartItems, shippingFee } = useCheckout();
   const router = useRouter();
 
@@ -27,13 +16,13 @@ export default function CartClient({ initialData }: { initialData: CartData }) {
   useEffect(() => {
     setCartItems(initialData.cartItems);
     setShippingFee(initialData.shipping_fee);
-  }, []);
+  }, [initialData, setCartItems, setShippingFee]);
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.product_price * item.quantity,
     0
   );
-  const grandTotal = subtotal + shippingFee - initialData.discount_applied;
+  const grandTotal = subtotal + shippingFee;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -61,7 +50,6 @@ export default function CartClient({ initialData }: { initialData: CartData }) {
             <OrderSummary
               subtotal={subtotal}
               shippingFee={shippingFee}
-              discount={initialData.discount_applied}
               grandTotal={grandTotal}
             />
 
