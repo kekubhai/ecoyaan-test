@@ -2,21 +2,26 @@
 
 import StepIndicator from "@/components/StepIndicator";
 import ShippingForm from "@/components/ShippingForm";
+import { useEffect, useState } from "react";
 
 export default function ShippingPage() {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className={`min-h-screen transition-opacity duration-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
+      <div className="max-w-3xl mx-auto">
         <StepIndicator currentStep={2} />
 
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">
-          Shipping Address
-        </h1>
-
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="space-y-6">
           <ShippingForm />
         </div>
       </div>
     </div>
   );
 }
+
+
