@@ -20,7 +20,7 @@ export default function OrderSummary({ subtotal, shippingFee, discount = 0, gran
           <span>Shipping</span>
           <span className="font-medium text-foreground">
             {shippingFee === 0 ? (
-              <span className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs rounded-full px-2 py-0.5 font-semibold">
+              <span className="bg-accent-green/15 text-accent-green text-xs rounded-full px-2 py-0.5 font-semibold transition-colors duration-300">
                 Free
               </span>
             ) : (
@@ -30,7 +30,7 @@ export default function OrderSummary({ subtotal, shippingFee, discount = 0, gran
         </div>
 
         {discount > 0 && (
-          <div className="flex justify-between text-green-600 dark:text-green-500 text-sm">
+          <div className="flex justify-between text-accent-green text-sm transition-colors duration-300">
             <span>Discount (10% OFF)</span>
             <span className="font-medium">-₹{discount.toLocaleString("en-IN")}</span>
           </div>
@@ -39,7 +39,7 @@ export default function OrderSummary({ subtotal, shippingFee, discount = 0, gran
         <div className="border-t border-border pt-4 mt-2">
           <div className="flex justify-between items-center text-foreground">
             <span className="font-semibold">Grand Total</span>
-            <span className="text-xl font-bold text-green-600 dark:text-green-500">
+            <span className="text-xl font-bold text-accent-green transition-colors duration-300">
               ₹{grandTotal.toLocaleString("en-IN")}
             </span>
           </div>

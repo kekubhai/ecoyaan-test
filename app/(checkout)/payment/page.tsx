@@ -34,11 +34,11 @@ export default function PaymentPage() {
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="text-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100 max-w-sm w-full">
-          <p className="text-gray-500 mb-6">Your session has expired or cart is empty.</p>
+        <div className="text-center bg-card p-8 rounded-2xl shadow-sm border border-border max-w-sm w-full transition-all duration-300">
+          <p className="text-muted-foreground mb-6 transition-colors duration-300">Your session has expired or cart is empty.</p>
           <button
             onClick={() => router.push("/cart")}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition-all"
+            className="w-full bg-accent-green text-accent-green-foreground font-semibold py-3 rounded-xl hover:opacity-90 transition-all duration-300"
           >
             Return to Cart
           </button>
@@ -48,7 +48,7 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen transition-opacity duration-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
       <div className="max-w-5xl mx-auto">
         <StepIndicator currentStep={3} />
 
@@ -56,14 +56,14 @@ export default function PaymentPage() {
           
           {/* LEFT PANEL: Order Summary with Items */}
           <div className="order-2 lg:order-1 space-y-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 pb-4 border-b border-gray-100">Order Summary</h2>
+            <div className="bg-card p-6 rounded-2xl shadow-sm border border-border transition-all duration-300">
+              <h2 className="text-lg font-semibold text-foreground mb-4 pb-4 border-b border-border transition-colors duration-300">Order Summary</h2>
               
               {/* Items List */}
               <div className="space-y-4 mb-6">
                 {cartItems.map((item) => (
                   <div key={item.product_id} className="flex gap-4">
-                    <div className="w-16 h-16 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                    <div className="w-16 h-16 flex-shrink-0 bg-muted rounded-lg overflow-hidden border border-border">
                       <img 
                         src={item.image} 
                         alt={item.product_name} 
@@ -71,10 +71,10 @@ export default function PaymentPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-800 truncate">{item.product_name}</p>
-                      <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity}</p>
+                      <p className="text-sm font-medium text-foreground truncate transition-colors duration-300">{item.product_name}</p>
+                      <p className="text-xs text-muted-foreground mt-1 transition-colors duration-300">Qty: {item.quantity}</p>
                     </div>
-                    <div className="text-sm font-semibold text-gray-800">
+                    <div className="text-sm font-semibold text-foreground transition-colors duration-300">
                       ₹{(item.product_price * item.quantity).toLocaleString("en-IN")}
                     </div>
                   </div>
@@ -82,24 +82,24 @@ export default function PaymentPage() {
               </div>
 
               {/* Totals */}
-              <div className="space-y-3 pt-4 border-t border-gray-100">
-                <div className="flex justify-between text-sm text-gray-600">
+              <div className="space-y-3 pt-4 border-t border-border">
+                <div className="flex justify-between text-sm text-muted-foreground transition-colors duration-300">
                   <span>Subtotal</span>
-                  <span className="font-medium">₹{subtotal.toLocaleString("en-IN")}</span>
+                  <span className="font-medium text-foreground">₹{subtotal.toLocaleString("en-IN")}</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-muted-foreground transition-colors duration-300">
                   <span>Shipping</span>
-                  <span className="font-medium">{shippingFee === 0 ? <span className="text-green-600">Free</span> : `₹${shippingFee.toLocaleString("en-IN")}`}</span>
+                  <span className="font-medium text-foreground">{shippingFee === 0 ? <span className="text-accent-green">Free</span> : `₹${shippingFee.toLocaleString("en-IN")}`}</span>
                 </div>
                 {discount > 0 && (
-                  <div className="flex justify-between text-sm text-green-600">
+                  <div className="flex justify-between text-sm text-accent-green transition-colors duration-300">
                     <span>Discount</span>
                     <span className="font-medium">-₹{discount.toLocaleString("en-IN")}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-lg font-bold text-gray-800 pt-2 border-t border-dashed border-gray-200 mt-2">
+                <div className="flex justify-between text-lg font-bold text-foreground pt-2 border-t border-dashed border-border mt-2 transition-colors duration-300">
                   <span>Total</span>
-                  <span className="text-green-600">₹{grandTotal.toLocaleString("en-IN")}</span>
+                  <span className="text-accent-green">₹{grandTotal.toLocaleString("en-IN")}</span>
                 </div>
               </div>
             </div>
@@ -109,41 +109,41 @@ export default function PaymentPage() {
           <div className="order-1 lg:order-2 space-y-6">
             
             {/* Shipping Address Review */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
+            <div className="bg-card p-6 rounded-2xl shadow-sm border border-border transition-all duration-300">
+              <div className="flex items-center justify-between mb-4 pb-4 border-b border-border">
                 <div className="flex items-center gap-2">
-                  <div className="bg-green-50 p-1.5 rounded-full">
-                    <MapPin className="w-4 h-4 text-green-600" />
+                  <div className="bg-accent-green/15 p-1.5 rounded-full">
+                    <MapPin className="w-4 h-4 text-accent-green" />
                   </div>
-                  <h2 className="text-lg font-semibold text-gray-800">Delivery Address</h2>
+                  <h2 className="text-lg font-semibold text-foreground transition-colors duration-300">Delivery Address</h2>
                 </div>
-                <Link href="/shipping" className="text-xs font-medium text-green-600 hover:text-green-700 underline flex items-center gap-1 transition-colors">
+                <Link href="/shipping" className="text-xs font-medium text-accent-green hover:opacity-80 underline flex items-center gap-1 transition-all duration-300">
                   <Edit2 className="w-3 h-3" /> Edit
                 </Link>
               </div>
 
               {shippingAddress ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-600">
-                  <div className="sm:col-span-2 font-medium text-gray-800 mb-1">{shippingAddress.fullName}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-muted-foreground transition-colors duration-300">
+                  <div className="sm:col-span-2 font-medium text-foreground mb-1">{shippingAddress.fullName}</div>
                   <div>{shippingAddress.email}</div>
                   <div>{shippingAddress.phone}</div>
-                  <div className="sm:col-span-2 mt-2 pt-2 border-t border-gray-50 text-gray-500">
-                    {shippingAddress.city}, {shippingAddress.state} - <span className="text-gray-800 font-medium">{shippingAddress.pinCode}</span>
+                  <div className="sm:col-span-2 mt-2 pt-2 border-t border-border text-muted-foreground">
+                    {shippingAddress.city}, {shippingAddress.state} - <span className="text-foreground font-medium">{shippingAddress.pinCode}</span>
                   </div>
                 </div>
               ) : (
-                <div className="text-sm text-amber-600 bg-amber-50 p-3 rounded-lg flex items-center gap-2 border border-amber-100">
+                <div className="text-sm text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 p-3 rounded-lg flex items-center gap-2 border border-amber-200 dark:border-amber-800 transition-colors duration-300">
                    Missing address details. 
-                   <Link href="/shipping" className="underline font-semibold hover:text-amber-700">Go back</Link>
+                   <Link href="/shipping" className="underline font-semibold hover:text-amber-700 dark:hover:text-amber-300 transition-colors">Go back</Link>
                 </div>
               )}
             </div>
 
             {/* Payment Button & Trust Badges */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-               <h2 className="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                  <div className="bg-green-50 p-1.5 rounded-full">
-                    <ShieldCheck className="w-4 h-4 text-green-600" />
+            <div className="bg-card p-6 rounded-2xl shadow-sm border border-border transition-all duration-300">
+               <h2 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2 transition-colors duration-300">
+                  <div className="bg-accent-green/15 p-1.5 rounded-full">
+                    <ShieldCheck className="w-4 h-4 text-accent-green" />
                   </div>
                   Payment Method
                </h2>
@@ -154,7 +154,7 @@ export default function PaymentPage() {
                     { label: "Cards", icon: <CreditCard className="w-3 h-3" /> },
                     { label: "Net Banking", icon: <Banknote className="w-3 h-3" /> }
                   ].map((method) => (
-                    <span key={method.label} className="bg-gray-50 border border-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 hover:bg-gray-100 transition-colors cursor-default">
+                    <span key={method.label} className="bg-muted border border-border text-muted-foreground px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 hover:bg-accent transition-all duration-300 cursor-default">
                       {method.label}
                     </span>
                   ))}
@@ -163,7 +163,7 @@ export default function PaymentPage() {
                <button
                 onClick={handlePayment}
                 disabled={isProcessing || !shippingAddress}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-4 rounded-xl shadow-lg shadow-green-100 transition-all duration-200 active:scale-95 disabled:cursor-not-allowed flex items-center justify-center gap-2 group relative overflow-hidden disabled:shadow-none"
+                className="w-full bg-accent-green text-accent-green-foreground font-semibold py-4 rounded-xl shadow-lg hover:opacity-90 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group relative overflow-hidden"
               >
                 {isProcessing ? (
                   <>
@@ -172,14 +172,14 @@ export default function PaymentPage() {
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    <ShieldCheck className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                     Pay Securely
                   </>
                 )}
               </button>
               
               <div className="mt-4 flex flex-col items-center gap-2">
-                <div className="flex items-center justify-center gap-1.5 text-xs text-gray-400 bg-gray-50 px-3 py-1.5 rounded-full">
+                <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground bg-muted px-3 py-1.5 rounded-full transition-colors duration-300">
                    <Lock className="w-3 h-3" />
                    <span>256-bit SSL Secured Connection</span>
                 </div>

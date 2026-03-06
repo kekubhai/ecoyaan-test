@@ -34,9 +34,9 @@ export default function CartClient({ initialData }: { initialData: CartApiRespon
   );
   
   const grandTotal = Math.max(0, subtotal + shippingFee - discount);
-{`min-h-screen transition-opacity duration-500 ${mounted ? "opacity-100" : "opacity-0"}`}
+
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen transition-opacity duration-500 ${mounted ? "opacity-100" : "opacity-0"}`}>
       <div className="w-full">
 
         <StepIndicator currentStep={1} />
@@ -45,14 +45,14 @@ export default function CartClient({ initialData }: { initialData: CartApiRespon
 
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6 lg:hidden">Your Cart</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-6 lg:hidden transition-colors duration-300">Your Cart</h1>
             
             {cartItems.length === 0 ? (
-              <div className="bg-white p-12 rounded-2xl text-center border border-gray-100 shadow-sm">
-                <p className="text-gray-500 mb-6">Your cart is empty.</p>
+              <div className="bg-card p-12 rounded-2xl text-center border border-border shadow-sm transition-all duration-300">
+                <p className="text-muted-foreground mb-6 transition-colors duration-300">Your cart is empty.</p>
                 <button
                   onClick={() => router.push('/')}
-                  className="text-green-600 font-semibold hover:text-green-700"
+                  className="text-accent-green font-semibold hover:opacity-90 transition-all duration-300"
                 >
                   Start Shopping
                 </button>
@@ -76,7 +76,7 @@ export default function CartClient({ initialData }: { initialData: CartApiRespon
             <button
               onClick={() => router.push("/shipping")}
               disabled={cartItems.length === 0}
-              className="w-full group bg-green-600 hover:bg-green-700 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-100 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full group bg-accent-green text-accent-green-foreground font-semibold py-3.5 rounded-xl shadow-lg hover:opacity-90 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               Proceed to Checkout
               <svg 
@@ -96,7 +96,7 @@ export default function CartClient({ initialData }: { initialData: CartApiRespon
               </svg>
             </button>
             
-            <p className="text-center text-xs text-gray-400 flex items-center justify-center gap-1.5">
+            <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5 transition-colors duration-300">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 width="12" 

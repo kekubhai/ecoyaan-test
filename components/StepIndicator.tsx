@@ -18,13 +18,13 @@ export default function StepIndicator({ currentStep }: Props) {
       <div className="relative flex items-center justify-between">
         {/* Background Line */}
         <div className="absolute top-4 sm:top-5 left-0 w-full -z-10 px-2">
-          <div className="h-0.5 w-full bg-gray-200 rounded-full" />
+          <div className="h-0.5 w-full bg-border rounded-full transition-colors duration-300" />
         </div>
         
         {/* Progress Line */}
         <div className="absolute top-4 sm:top-5 left-0 w-full -z-10 px-2">
           <div 
-            className="h-0.5 bg-green-600 rounded-full transition-all duration-500 ease-out"
+            className="h-0.5 bg-accent-green rounded-full transition-all duration-500 ease-out"
             style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
           />
         </div>
@@ -59,8 +59,8 @@ export default function StepIndicator({ currentStep }: Props) {
                   mt-2 text-xs sm:text-sm font-medium transition-colors duration-300
                   ${
                     isCurrent || isCompleted
-                      ? "text-gray-800 font-semibold"
-                      : "text-gray-400"
+                      ? "text-foreground font-semibold"
+                      : "text-muted-foreground"
                   }
                 `}
               >
